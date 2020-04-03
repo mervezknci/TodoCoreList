@@ -11,49 +11,49 @@ using TodoCoreList.Service.Services.Interface;
 namespace TodoCoreList.Service.Services
 {
     public abstract class BaseService<TBaseProvider,TEntity> : IBaseService<TEntity> where TEntity : class 
-        where TBaseProvider : BaseProvider<TEntity>
+        where TBaseProvider : IBaseProvider<TEntity>
     {
-        private readonly TBaseProvider _baseProvider;
+        protected readonly TBaseProvider DataProvider;
         public BaseService(TBaseProvider baseProvider)
         {
-            _baseProvider = baseProvider;
+            DataProvider = baseProvider;
         }
 
         public TModel Add<TModel>(TModel model)
         {
             var entity = model.Map<TEntity>();
-            _baseProvider.Add(entity);
-            _baseProvider.SaveChanges();
+            DataProvider.Add(entity);
+            DataProvider.SaveChanges();
             return model.Map<TModel>();
         }
 
         public void Delete(int Id)
         {
-            _baseProvider.Delete(Id);
-            _baseProvider.SaveChanges();
+            DataProvider.Delete(Id);
+            DataProvider.SaveChanges();
         }
 
         public IQueryable<TModel> Find<TModel>(Expression<Func<TEntity, bool>> expression)
         {
-            return _baseProvider.Find(expression).ProjectTo<TModel>();
+            return DataProvider.Find(expression).ProjectTo<TModel>();
         }
 
         public IQueryable<TModel> GetAll<TModel>()
         {
 
-            return _baseProvider.GetAll().ProjectTo<TModel>();
+            return DataProvider.GetAll().ProjectTo<TModel>();
         }
 
         public TModel GetById<TModel>(int Id)
         {
-            return _baseProvider.GetById(Id).Map<TModel>();
+            return DataProvider.GetById(Id).Map<TModel>();
         }
 
         public TModel Update<TModel>(int Id, TModel model)
         {
-            var entity = _baseProvider.GetById(Id);
+            var entity = DataProvider.GetById(Id);
             model.Map(entity);
-            _baseProvider.SaveChanges();
+            DataProvider.SaveChanges();
             return model.Map<TModel>();
         }
     }

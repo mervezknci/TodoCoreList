@@ -37,6 +37,7 @@ namespace TodoCoreList.Data.Providers
             return _dbSet.Where(expression);
         }
 
+        //AsNoTracking()
         public IQueryable<T> GetAll()
         {
             return _dbSet;

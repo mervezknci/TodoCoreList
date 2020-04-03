@@ -8,8 +8,10 @@ namespace TodoCoreList.DTO.Mapper.Profiles
     {
         public TodoProfile()
         {
-            CreateMap<Todo, TodoDto>()
-                .ForMember(x=> x.DueDate1, y=> y.MapFrom(f=> f.DueDate));
+            CreateMap<Todo, TodoDto>().ReverseMap();
+            //.ForMember(x=> x.DueDate1, y=> y.MapFrom(f=> f.DueDate));
+            CreateMap<Todo, TodoListDto>();
+            CreateMap<Todo, TodoCheckStatusDto>().ReverseMap();
         }
     }
 }

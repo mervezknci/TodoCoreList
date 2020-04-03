@@ -9,6 +9,12 @@ namespace TodoCoreList.Data.Contexts
         {
 
         }
+
+        public TodoContext(DbContextOptions<TodoContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<Todo> Todo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

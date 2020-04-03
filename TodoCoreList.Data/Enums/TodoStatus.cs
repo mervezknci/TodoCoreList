@@ -7,6 +7,7 @@ namespace TodoCoreList.Data.Enums
     public enum TodoStatus
     {
         Active = 1,
-        Passive = 2     
+        Complete = 2,
+        Passive = 3
     }
 }
